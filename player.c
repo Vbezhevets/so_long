@@ -1,5 +1,11 @@
 # include "functions/functlib.h"
 
+// щодо неймінгу функції, то зазвичай, якщо функція повертає 1 або 0, то вона називається is_...
+// наприклад, is_map_anal
+// але тут, якщо ти використовуєш цю функцію тільки в одному місці, то можна і не змінювати
+// але якщо використовуєш в багатьох місцях, то краще змінити
+// так більше інтуїтивно зрозуміло, що функція повертає 1 або 0
+// але це не обов'язково, це лише рекомендація
 int map_anal(char point, t_data * data)
 {
 	if (point == '0')
@@ -16,12 +22,14 @@ int map_anal(char point, t_data * data)
 		else
 			return(0);
 	}
-	return (0);	
+	return (0);
 }
 
-void move_up(t_data *data) 
+// мені дуже сподобалась ідея з функціями move_... все так просто і гарно працює
+// дуже вдало ти розділив кожну з низ на два
+void move_up(t_data *data)
 {
-	if (map_anal(data->map[data->p_y - 1][data->p_x], data)) 
+	if (map_anal(data->map[data->p_y - 1][data->p_x], data))
 	{
 		data->map[data->p_y - 1][data->p_x] = 'P';
 		data->map[data->p_y][data->p_x] = '0';

@@ -45,10 +45,12 @@ int check_map(t_data *data)
     return (0);
 }
 
+// функція дуже багато ліків має, будь обережний, її треба буде дуже переписати
+// також нема жодного протекта на опен і гет некст лайн
 int load_map(t_data *data, char *f_path)
 {
 	int	prev_l;
-	int	l = 1; 
+	int	l = 1;
 	int fd;
 	char * line;
 	int i;
@@ -59,13 +61,13 @@ int load_map(t_data *data, char *f_path)
 	{
 		line = get_next_line(fd);
 		l = ft_strlen(line);
-		if (l != prev_l && data->h > 0 && l != 0) // strings has various lgs 
+		if (l != prev_l && data->h > 0 && l != 0) // strings has various lgs
 			return(1); // handle mistakes
 		if (l != 0)
 			prev_l = l;
 		data->h++;
 	}
-	close(fd); 
+	close(fd);
 	l = prev_l;
 	data->w = l;
 	data->map = (char**)malloc(sizeof(char*) * (data->h));
@@ -81,8 +83,8 @@ int load_map(t_data *data, char *f_path)
 		if (data->map[i] == NULL)
 			return(1);
 		ft_strcpy(data->map[i], get_next_line(fd));
-		i++; 						
-	}	
+		i++;
+	}
 	close (fd);
 	return (0);
 }
@@ -94,7 +96,7 @@ void map_render(t_data *data)
 	while (i < data->h)
 	{
 		ft_printf("%s", data->map[i]);
-		i++; 						
-	}		
+		i++;
+	}
 	ft_printf("\n");
 }
