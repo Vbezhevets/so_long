@@ -3,13 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvalerii <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: v <v@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 19:43:05 by bvalerii          #+#    #+#             */
-/*   Updated: 2023/11/02 19:43:20 by bvalerii         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:09:14 by v                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include "functlib.h" 
+
+#include "functlib.h"
+
 void	free_and_null(char **str)
 {
 	if (*str)
@@ -19,7 +21,7 @@ void	free_and_null(char **str)
 	}
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_my_strjoin(char *s1, char *s2)
 {
 	char	*new;
 	char	*ret;
@@ -106,7 +108,7 @@ char	*get_next_line(int fd)
 		if (bytes_read == -1)
 			return (free_and_null(&buffer), free_and_null(&remainder), NULL);
 		buffer[bytes_read] = '\0';
-		remainder = ft_strjoin(remainder, buffer);
+		remainder = ft_my_strjoin(remainder, buffer);
 	}
 }
 /*

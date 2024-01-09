@@ -3,15 +3,15 @@
 int key_pressed(int key, t_data *data)
 {
 //	printf("key: %d\n", key);
-	if (key == 119 || key == 65362)
+	if (key == UP_A || key == UP_B)
 			move_up(data);//(move(adress))
-	if (key == 115 || key == 65364)
+	if (key == DOWN_A || key == DOWN_B)
 		move_down(data);
-	if (key == 97 || key == 65361)
+	if (key == LEFT_A || key == LEFT_B)
 		move_left(data);
-	if (key == 100 || key == 65363)
+	if (key == RIGHT_A || key == RIGHT_B)
 		move_right(data);
-	if (key == 65307)
+	if (key == ESC)
 		mlx_stop(data);
     return (0);
 }
@@ -22,10 +22,12 @@ int mlx_go(t_data *data)
     
     data->mlx = mlx_init();
     if (data->mlx == NULL)
-        return(1); //handle
-	data->win = mlx_new_window(data->mlx, 600, 400, "W");
+        return(3); //handle
+	else
+		data->win = mlx_new_window(data->mlx, (WIND_W / 10) * data->w, (WIND_H /10) * data->h, "W");
 	if (data->win == NULL)
 		return(free(data->mlx), 1); //handle
+	map_render(data);
 	mlx_key_hook(data->win, key_pressed, data);
 	mlx_loop(data->mlx);
     return (0);

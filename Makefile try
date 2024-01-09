@@ -1,0 +1,42 @@
+NAME	= a.out
+CC		= cc
+CFLAGS	= -Wall -Wextra -Werror -g
+LINKS		= -lmlx -lXext -lX11
+
+LIBDIR	= ./libft
+LIBFT	= ${LIBDIR}/libft.a
+
+SRCS        :=      mlx_.c \
+                          main.c \
+                          play.c \
+                          functions/ft_printf.c \
+                          functions/get_next_line.c \
+                          map.c \
+                          
+OBJS        := $(SRCS:.c=.o)
+
+%.o		: %.c
+		${CC} ${CFLAGS} -o $@ -c $< -I .
+
+${NAME}	: ${LIBFT} ${OBJS}
+		cp ${LIBFT} ${NAME}
+		ar -rcs $@ ${OBJS}
+
+${LIBFT}:
+		make -C $(LIBDIR) all
+
+all		: ${NAME}
+
+bonus	: all
+
+clean	:
+		make -C ${LIBDIR} clean
+		rm -f ${OBJS} ${OBJS_B}
+
+fclean	: clean
+		make -C ${LIBDIR} fclean
+		rm -f ${NAME}
+
+re		: fclean all
+
+.PHONY: all, clean, fclean, bonus, re

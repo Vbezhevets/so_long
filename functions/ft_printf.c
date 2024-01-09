@@ -3,34 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvalerii <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: v <v@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 19:01:02 by bvalerii          #+#    #+#             */
-/*   Updated: 2023/10/10 19:01:09 by bvalerii         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:37:06 by v                ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */\
-#include "functlib.h" 
+/* ************************************************************************** */
+
+#include "functlib.h"
 
 
-char	*ft_strchr(const char *str, int c)
 
-{
-	c = (unsigned char)c;
-	while (*str && *str != c)
-		str++;
-	if (*str == c)
-		return ((char *)str);
-	return (NULL);
-}
-void	ft_strcpy(char *dst, char *src)
-{
-	while (*src != '\0')
-		*dst++ = *src++;
-	*dst = '\0';
-}
-
-
-void	format(const char str, va_list *args, int *count)
+void	format(char str, va_list *args, int *count)
 {
 	char	c;
 
@@ -58,7 +42,7 @@ void	format(const char str, va_list *args, int *count)
 	}
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(char *str, ...)
 {
 	int		count;
 	int		i;

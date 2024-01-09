@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bvalerii <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: v <v@student.42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 16:30:43 by bvalerii          #+#    #+#             */
-/*   Updated: 2023/09/05 16:30:47 by bvalerii         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:10:08 by v                ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "functlib.h" 
+#include "libft.h"
 
 int	ft_strlen(char *str)
 {
@@ -23,6 +23,3 @@ int	ft_strlen(char *str)
 		i++;
 	return (i);
 }
-
- 
-
