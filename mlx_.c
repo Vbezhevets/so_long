@@ -19,14 +19,14 @@ int key_pressed(int key, t_data *data)
 int mlx_go(t_data *data)
 {
 
-    
+
     data->mlx = mlx_init();
     if (data->mlx == NULL)
-        return(3); //handle
+        return(3); //bad protection
 	else
 		data->win = mlx_new_window(data->mlx, (WIND_W / 10) * data->w, (WIND_H /10) * data->h, "W");
 	if (data->win == NULL)
-		return(free(data->mlx), 1); //handle
+		return(free(data->mlx), 1); //bad protection
 	map_render(data);
 	mlx_key_hook(data->win, key_pressed, data);
 	mlx_loop(data->mlx);

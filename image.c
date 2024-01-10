@@ -19,7 +19,7 @@ char * direction(int d)
     char c;
     char *path = "img/move";
     c = (char)d + '0';
-    
+
     ft_strcpy(path, "img/move");
     ft_strjoin(path, &c);
     ft_strjoin(path, ".xmp");
@@ -38,10 +38,10 @@ t_image *get_img(t_data *data, char c)
     image = (t_image *)calloc(1, sizeof(t_image));
     if (!image)
     {
-        error(2); 
+        error(2);
         free_map(data, data->h);
         mlx_stop(data);
-    }        
+    }
     image->path = (char *)calloc(15, sizeof(char));
     if (c == WALL)
         ft_strcpy(image->path,"img/walls.xpm");
@@ -66,14 +66,14 @@ void map_render(t_data *data)
     int x = 0;
     t_image *i_temp;
 
-    while(y < data->h) 
+    while(y < data->h)
 	{
 		x = 0;
 		while(x < data->w)
 		{
-            i_temp = get_img(data, data->map[y][x]);
+            i_temp = get_img(data, data->map[y][x]);//no protection
             mlx_put_image_to_window(data->mlx, data->win, i_temp->img, x * IMG_W, y * IMG_H);
-			free(i_temp);
+			free(i_temp);//leaks from image
             x++;
 		}
 		y++;
@@ -83,7 +83,7 @@ void map_render(t_data *data)
 	{
 		ft_printf("%s", data->map[i]);
           mlx_put_image_to_window(mlx, win, img, 0, 0);
-		i++; 						
+		i++;
 	}		*/
-	ft_printf("\n"); 
-} 
+	ft_printf("\n");
+}

@@ -12,7 +12,7 @@ void my_to_zero(t_data *data)
 	data->p_y = 0;
 	data->dir = 1;
 }
- 
+
 int main ()
 {
 		t_data	data;

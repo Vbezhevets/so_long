@@ -14,7 +14,7 @@ int player_detect(t_data *data)
 	int x = 0;
 	int y = 0;
 
-	while(y < data->h - 1) 
+	while(y < data->h - 1)
 	{
 		x = 0;
 		while(x < data->w - 1)
@@ -41,7 +41,7 @@ int is_map_ok(t_data *data, int y, int x)
 		x = 0;
 		while(x < data->w - 1)
 		{
-			if (data->map[y][x] == PLAYER) 
+			if (data->map[y][x] == PLAYER)
 				data->p++;
 			if (data->map[y][x] == SCORE)
 				data->score++;
@@ -75,18 +75,18 @@ int map_init(t_data *data, char *f_path)
 	i = 0;
 	fd = open(f_path, O_RDONLY);
 	if (fd < 0)
-		return(error(0), 1);
+		return(error(0), 1);//bad protection, leaks
 	while (i < data->h)
 	{
-		data->map[i] = (char *)calloc((data->w + 1), sizeof(char)); //?? 
+		data->map[i] = (char *)calloc((data->w + 1), sizeof(char)); //??
 		if (data->map[i] == NULL)
-			return(free_map(data, i), error(2), 1);
+			return(free_map(data, i), error(2), 1); // fd memory leak
 	//	line = get_next_line(fd);
 		/*if (!line)
 			return(free_map(data, i), error(2), 1); */
-		ft_strcpy(data->map[i], get_next_line(fd));
-		i++; 
-	}	
+		ft_strcpy(data->map[i], get_next_line(fd));//no protection for gnl
+		i++;
+	}
 	close (fd);
 	return 0;
 	}
@@ -94,7 +94,7 @@ int map_init(t_data *data, char *f_path)
 int load_map(t_data *data, char *f_path)
 {
 	int	prev_l;
-	int	l = 1; 
+	int	l = 1;
 	int fd;
 	char * line = "1";
 
@@ -103,20 +103,19 @@ int load_map(t_data *data, char *f_path)
 		return(error(0), 1);
 	while (l != 0)
 	{
-		line = get_next_line(fd);
+		line = get_next_line(fd);//bad protection, the reason of problems below
 		/*if (!line)
 			return(NULL); */
 		l = ft_strlen(line);
-		if (l != prev_l && data->h > 0 && l != 0) // strings has various lgs 
+		if (l != prev_l && data->h > 0 && l != 0) // strings has various lgs
 			return(error(0), close(fd), 1);  // Segmentation fault (core dumped)
 		if (l != 0)
 			prev_l = l;
 		data->h++;
 	}
-	close(fd); 
+	close(fd);
 	data->h--;
 	data->w = prev_l - 1;
 	map_init(data, f_path);
 	return(0);
 }
-

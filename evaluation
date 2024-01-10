@@ -1,0 +1,48 @@
+1. Опять 25, СС для компіляції використовуємо тільки!
+2. Typo in libft/Makefile, how did you compile it?
+3. Короче мейкфайл переробити треба капітально, один не то робить, другий не робить взагалі, також фолдер functions треба видалити, навіть не думай з ним продовжувати роботу, одразу став лібфт!
+4. Map is still hardcoded, you must use it via argv
+5. Moves counter is not displayed
+6. Header file must be rewriten as well, ifndef is missing at the beggining and declaration of libft function is useless
+7. Segfault with next map:
+1111
+1P01
+1001
+1001
+1001
+10E1
+1111
+
+8. Segfault with next map:
+1111
+1P01
+
+1CE1
+1111
+
+9. Just look at this:)
+1111
+1P01
+1111
+1CE1
+1111
+
+10. Segfault with next map:
+1111
+1P01
+1111
+1C01
+1111
+
+11. Segfault:
+1111
+1PP1
+1111
+1CE1
+1111
+
+12. To many problems: valgrind ./a
+13. Funcheck is mad as well:)
+14. Norms:)
+
+Роботи ще багато
