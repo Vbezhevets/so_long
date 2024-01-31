@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: v <v@student.42.fr>                        +#+  +:+       +#+        */
+/*   By: bvalerii <bvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 20:38:35 by bvalerii          #+#    #+#             */
-/*   Updated: 2024/01/04 16:17:17 by v                ###   ########.fr       */
+/*   Updated: 2024/01/27 21:35:27 by bvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strnstr( char *big,  char *small, size_t n)
+char	*ft_strnstr(char *big, char *small, size_t n)
 {
 	size_t	o;
 	size_t	i;

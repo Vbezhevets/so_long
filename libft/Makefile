@@ -6,14 +6,14 @@
 #    By: v <v@student.42.fr>                        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/05 12:50:27 by bvalerii          #+#    #+#              #
-#    Updated: 2024/01/04 16:44:17 by v                ###   ########.fr        #
+#    Updated: 2024/01/16 14:37:39 by v                ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werro
+CFLAGS = -Wall -Wextra -Werror
 
 SRCS = \
 		ft_memset.c ft_bzero.c ft_memcpy.c ft_striteri.c ft_memmove.c \
@@ -22,7 +22,8 @@ SRCS = \
 		ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c \
 		ft_toupper.c ft_tolower.c ft_calloc.c ft_strdup.c ft_substr.c \
 		ft_strjoin.c ft_strtrim.c ft_split.c ft_itoa.c ft_strmapi.c \
-		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
+		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+		ft_printf.c ft_putchar.c ft_putx.c get_next_line.c ft_strcpy.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

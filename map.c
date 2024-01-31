@@ -1,45 +1,72 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bvalerii <bvalerii@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/27 16:24:36 by bvalerii          #+#    #+#             */
+/*   Updated: 2024/01/29 19:11:48 by bvalerii         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-# include "functions/functlib.h"
+#include "so_long.h"
 
-int is_cell_ok(char c)
+int	player_detect(t_data *data)
 {
-	if (c == WALL || c == SPACE || c == SCORE)
-		return (0);
-	if (c == EXIT || c == PLAYER)
-		return (0);
-	return (1);
-}
-int player_detect(t_data *data)
-{
-	int x = 0;
-	int y = 0;
+	int	x;
+	int	y;
 
-	while(y < data->h - 1)
+	x = 0;
+	y = 0;
+	while (y < data->h)
 	{
 		x = 0;
-		while(x < data->w - 1)
+		while (x < data->w)
 		{
-			if (is_cell_ok(data->map[y][x]) != 0)
-				return (free_map(data, data->h), error(1), 1);
-			if (data->map[y][x] == PLAYER) // player detection
+			if (data->map[y][x] == PLAYER)
 			{
 				data->p_y = y;
 				data->p_x = x;
 			}
+			if (data->map[y][x] == EXIT)
+			{
+				data->e_y = y;
+				data->e_x = x;
+			}
 			x++;
 		}
 		y++;
-	//ft_printf("player position %d, %d\n", data->p_y, data->p_x);
 	}
 	return (0);
 }
 
-int is_map_ok(t_data *data, int y, int x)
+int	is_cells_ok(t_data *data, int y, int x)
 {
-	while(y < data->h)
+	char	c;
+
+	while (y < data->h)
 	{
 		x = 0;
-		while(x < data->w - 1)
+		while (x < data->w)
+		{
+			c = data->map[y][x];
+			if (c != WALL && c != SPACE && c != SCORE
+				&& c != EXIT && c != PLAYER)
+				return (error(ERR_MAP, data), 1);
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	is_map_ok(t_data *data, int y, int x)
+{
+	while (y < data->h - 1)
+	{
+		x = 0;
+		while (x < data->w - 1)
 		{
 			if (data->map[y][x] == PLAYER)
 				data->p++;
@@ -48,74 +75,68 @@ int is_map_ok(t_data *data, int y, int x)
 			if (data->map[y][x] == EXIT)
 				data->e++;
 			if (data->map[0][x] != WALL || data->map[y][0] != WALL)
-				return (free_map(data, data->h), error(1), 1); //free_map(data, data->h)
+				return (error(ERR_MAP, data), 1);
 			if (data->map[data->h - 1][x] != WALL)
-				return (free_map(data, data->h), error(1), 1);
+				return (error(ERR_MAP, data), 1);
 			x++;
 		}
 		if (data->map[y][x] != WALL)
-			return (free_map(data, data->h), error(1), 1);
+			return (error(ERR_MAP, data), 1);
 		y++;
 	}
 	if (data->p != 1 || data->e != 1 || data->h < 3 || data->score == 0)
-		return (free_map(data, data->h), error(1), 1);
-	return(0);
+		return (error(ERR_MAP, data), 1);
+	return (0);
 }
 
-
-int map_init(t_data *data, char *f_path)
+int	map_init(t_data *data, char *f_path)
 {
-	int i;
-	int fd;
+	int		i;
+	int		fd;
+	char	*line;
 
-	data->map = (char**)calloc(data->h, sizeof(char*));
+	data->map = (char **)ft_calloc(data->h, sizeof (char *));
 	if (data->map == NULL)
-		return(error(2), 1);
-	data->map[data->h - 1] = NULL;
-	i = 0;
+		return (error(ERR_MLC, data), 1);
 	fd = open(f_path, O_RDONLY);
 	if (fd < 0)
-		return(error(0), 1);//bad protection, leaks
+		return (error(ERR_RMP, data), 1);
+	i = 0;
 	while (i < data->h)
 	{
-		data->map[i] = (char *)calloc((data->w + 1), sizeof(char)); //??
-		if (data->map[i] == NULL)
-			return(free_map(data, i), error(2), 1); // fd memory leak
-	//	line = get_next_line(fd);
-		/*if (!line)
-			return(free_map(data, i), error(2), 1); */
-		ft_strcpy(data->map[i], get_next_line(fd));//no protection for gnl
+		line = get_next_line(fd);
+		if (line == NULL)
+			return (error(ERR_RMP, data), 1);
+		data->map[i] = line;
 		i++;
 	}
+	get_next_line(-42);
 	close (fd);
-	return 0;
-	}
+	return (0);
+}
 
-int load_map(t_data *data, char *f_path)
+int	load_map(t_data *data, char *path, int prev_l, int l)
 {
-	int	prev_l;
-	int	l = 1;
-	int fd;
-	char * line = "1";
+	int		fd;
+	char	*line;
 
-	fd = open(f_path, O_RDONLY);
+	fd = open(path, O_RDONLY);
 	if (fd < 0)
-		return(error(0), 1);
+		return (error(ERR_RMP, data), 1);
 	while (l != 0)
 	{
-		line = get_next_line(fd);//bad protection, the reason of problems below
-		/*if (!line)
-			return(NULL); */
+		line = get_next_line(fd);
 		l = ft_strlen(line);
-		if (l != prev_l && data->h > 0 && l != 0) // strings has various lgs
-			return(error(0), close(fd), 1);  // Segmentation fault (core dumped)
+		if (l != prev_l && data->h > 0 && l != 0)
+			return (free(line), error(ERR_MAP, data), close(fd), 1);
 		if (l != 0)
+		{
 			prev_l = l;
-		data->h++;
+			data->h++;
+		}
+		free(line);
 	}
 	close(fd);
-	data->h--;
 	data->w = prev_l - 1;
-	map_init(data, f_path);
-	return(0);
+	return (map_init(data, path));
 }

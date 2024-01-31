@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: v <v@student.42.fr>                        +#+  +:+       +#+        */
+/*   By: bvalerii <bvalerii@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 20:47:18 by bvalerii          #+#    #+#             */
-/*   Updated: 2024/01/04 16:16:51 by v                ###   ########.fr       */
+/*   Updated: 2024/01/27 21:33:32 by bvalerii         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h" 
+#include "libft.h"
 
-static	int	ft_length(char *s, char c)
+static int	ft_length(char *s, char c)
 {
-	int			l;
-	char 	*p;
+	int		l;
+	char	*p;
 
 	p = s;
 	l = 0;
@@ -29,8 +29,8 @@ static	int	ft_length(char *s, char c)
 
 static int	qty(char *s, char c)
 {
-	int		count;
-	int		f;
+	int	count;
+	int	f;
 
 	count = 0;
 	f = 1;
